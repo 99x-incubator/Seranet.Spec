@@ -91,6 +91,7 @@
             var projectlevel = 3;
             $scope.projectlist[p].areas = [];
 
+            //certificateCount(p);
             for (var i = 0; i < $scope.areas.length; i++) {
                 var arealevel = 3;
                 var practicesCount = 0;
@@ -150,6 +151,21 @@
         }
 
     }
+
+    /*function certificateCount(projectId) {
+
+
+        $http({ method: 'GET', url: 'api/certificates/' + projectId }).
+        success(function (data, status, headers, config) {
+            console.log(data);
+            $scope.projectlist[projectId].certificates = data;
+        }).
+        error(function (data, status, headers, config) {
+            console.log(data);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+    }*/
 
     }
     
