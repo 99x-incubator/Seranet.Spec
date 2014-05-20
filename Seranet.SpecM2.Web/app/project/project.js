@@ -313,9 +313,9 @@
                         console.log(data);
                         $scope.closeModalPopup();
                     });
+            } else {
+                  $scope.closeModalPopup();
             }
-            $scope.closeModalPopup();
-
 
 
         }
@@ -342,8 +342,11 @@
             // $(document).ready(function () {
 
             // });
+           
+            //$('myModal').data('bs.modal', null);
+            $('body').removeClass('modal-open');
             backdrop.remove();
-
+           // $('.modal-backdrop').remove();
             $route.reload();
         }
 
@@ -357,6 +360,9 @@
                     checkboxes[i].checked = false
                 }
             }
+            
+            //
+
             //alert('Modal is sclosed!');
             //console.log($('.modal-backdrop'));
         })
