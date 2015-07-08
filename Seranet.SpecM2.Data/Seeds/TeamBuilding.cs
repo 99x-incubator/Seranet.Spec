@@ -36,8 +36,8 @@ namespace Seranet.SpecM2.Data.Seeds
                                 new Practice{ GUID=Guid.NewGuid(), Code="TC.1.2", Description="Team has carried out explicit activities to improve peer bonding of the team continuously", Level = level1 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="TC.2.1", Description="Internal team satisfaction survey is conducted quarterly and results are discussed within the team to take improvement actions.", Level = level2 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="TC.2.2", Description="All team members are aware of cross cultural aspects. Members are able the explain the means of neutralizing such differences in a distributed work environment.", Level = level2 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="TC.3.1", Description="Members are aware of travel information to the counterpart countries. They possess reasonable knowledge of social practices in conversations, dining, clothing, etc.", Level = level1 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="TC.3.2", Description="Team is knowledgeable of the important information such as history, geology, politics, sports, etc. of the counterpart countries.", Level = level1 }
+                                new Practice{ GUID=Guid.NewGuid(), Code="TC.3.1", Description="Members are aware of travel information to the counterpart countries. They possess reasonable knowledge of social practices in conversations, dining, clothing, etc.", Level = level3 },
+                                new Practice{ GUID=Guid.NewGuid(), Code="TC.3.2", Description="Team is knowledgeable of the important information such as history, geology, politics, sports, etc. of the counterpart countries.", Level = level3 }
                             }
                         },
                         new SubArea{ GUID=Guid.NewGuid(), Code="BO", Name="Blue Oceans", 
