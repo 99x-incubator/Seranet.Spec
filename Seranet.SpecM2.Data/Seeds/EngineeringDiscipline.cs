@@ -25,22 +25,22 @@ namespace Seranet.SpecM2.Data.Seeds
                             Practices= new List<Practice> {
                                 new Practice{ GUID=Guid.NewGuid(), Code="VQ.1.1", Description="A unit testing framework is integrated to the solution. Team has the ability of test execution at least upon build time.", Level = level1},
                                 new Practice{ GUID=Guid.NewGuid(), Code="VQ.1.2", Description="Code quality is analyzed automatically at the development environment (IDE). A common ruleset used for analysis is shared across the team members.", Level = level1 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="VQ.1.3", Description="Team understands the test-pyramid roles played by different test types . Tooling and infrastructure for the same is agreed and is being built.", Level = level1 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="VQ.2.1", Description="Critical areas of the system are covered with unit, integration and functional tests as applicable. ", Level = level2 },
+                                new Practice{ GUID=Guid.NewGuid(), Code="VQ.1.3", Description="Team has a strategy towards a test-pyramid implementation as appropriate. Tooling and infrastructure is agreed and being built.", Level = level1 },
+                                new Practice{ GUID=Guid.NewGuid(), Code="VQ.2.1", Description="Critical areas of the system are covered with unit, integration and functional tests as applicable and team is aware of critical areas for manual testing. ", Level = level2 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="VQ.2.2", Description="Continuous Integration is in place and tests are automatically executed upon builds. Commits are stopped if a test/build is broken, until fixed.", Level = level2 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="VQ.2.3", Description="Central code quality analysis tool is integrated to monitor continuously. Overall quality indicators follow upward trend during current quarter.", Level = level2 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="VQ.3.1", Description="Team is aware and practices of TDD in developing new code modules. All new code written is testable with proper dependency handling techniques.", Level = level3 },
+                                new Practice{ GUID=Guid.NewGuid(), Code="VQ.3.1", Description="Team is well aware of TDD, BDD practices and applicability of the same. New code written is testable with proper dependency handling techniques.", Level = level3 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="VQ.3.2", Description="Acceptance tests for new features are automated and maintained as a regression test suite. Coverage levels are incrementing over time.", Level = level3 }
                             }
                         },
                         new SubArea{ GUID=Guid.NewGuid(), Code="AD", Name="Agility in Design", 
                             Practices= new List<Practice> {
-                                new Practice{ GUID=Guid.NewGuid(), Code="AD.1.1", Description="Refactoring and standardization (generalization) needs are identified (preferably through automation). A backlog for managing technical debt is maintained by the team.", Level = level1},
-                                new Practice{ GUID=Guid.NewGuid(), Code="AD.1.2", Description="System design is modular where changes in one module is minimally impacting others. Team members are able to explain the modularity of the system at different levels.", Level = level1 },
+                                new Practice{ GUID=Guid.NewGuid(), Code="AD.1.1", Description="Refactoring and standardization (generalization) needs are identified. A backlog for managing technical debt is maintained by the team.", Level = level1},
+                                new Practice{ GUID=Guid.NewGuid(), Code="AD.1.2", Description="System design is simple, modular and loosely coupled. Team members collaborate in design and are able to explain design concepts including modularity.", Level = level1 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="AD.1.3", Description="Contexts in which the product may operate are identified. Designs are in place to meet required compatibility needs (form-factors, devices, browsers, etc.).", Level = level1 },
                                 new Practice{ GUID=Guid.NewGuid(), Code="AD.2.1", Description="All third-party libraries are continuously kept upgraded such that dependencies would not make the product legacy at any point of the time. ", Level = level2 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="AD.2.2", Description="Non-functional requirements for cross cutting architectural aspects (security, globalization, etc.) are identified and maintained in a form of a backlog. ", Level = level2 },
-                                new Practice{ GUID=Guid.NewGuid(), Code="AD.3.1", Description="The team is in favor of deferred decisions uses delaying techniques such as abstractions. A log of deferred decisions is maintained and actioned appropriately.", Level = level3 }
+                                new Practice{ GUID=Guid.NewGuid(), Code="AD.2.2", Description="Non-functional requirements of cross cutting architectural aspects are identified and maintained in a form of a backlog. ", Level = level2 },
+                                new Practice{ GUID=Guid.NewGuid(), Code="AD.3.1", Description="The team is in favor of deferred decisions for optimizing the benefits by making the decisions at the 'last responsible moment.", Level = level3 }
                             }
                         },
                         new SubArea{ GUID=Guid.NewGuid(), Code="PS", Name="Production Stability", 
