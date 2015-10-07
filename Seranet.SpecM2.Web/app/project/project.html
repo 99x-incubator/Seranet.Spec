@@ -103,7 +103,7 @@
                                         <div class="col-md-6">
                                             <div class="col" ng-repeat="completed in completedPractises[i]">
                                                 <div class="content-box-type-two-popup">
-                                                   
+
                                                     <div>
                                                         {{completed.Code}} - {{completed.Description}}
 
@@ -116,12 +116,12 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    
-                                                     
+
+
                                                     <div ng-switch on="isAuditor">
                                                         <div ng-switch-when="yes" class="checkbox-inline bold-text">
-                                                            <button type="button" id="btn-reject{{completed.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(completed)">Reject</button>
-                                                            <button type="button" id=addCommentBtn{{completed.Id}} class="btn btn-addcomment disabled" data-toggle="modal" data-target="#commentCompletedModal{{completed.Id}}">
+                                                            <button type="button" id="btn-reject{{completed.Id}}" class="btn btn-default-audit" ng-click="rejectClaim(completed)" data-toggle="modal" data-target="#commentCompletedModal{{completed.Id}}">Reject</button>
+                                                            <button type="button" id=addCommentBtn{{completed.Id}} class="btn btn-addcomment" data-toggle="modal" data-target="#commentCompletedModal{{completed.Id}}">
                                                                 Comments
                                                             </button>
                                                         </div>
@@ -133,11 +133,11 @@
                                                     <div class="modal-popup">
                                                         <div class="modal-content-comment">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" >{{completed.Code}} : Add a comment</h4>
+                                                                <h4 class="modal-title">{{completed.Code}} : Add a comment</h4>
                                                             </div>
                                                             <div class="modal-body-comment">
                                                                 <div ng-switch on="isMember">
-                                                                    <div ng-switch-when="yes" >
+                                                                    <div ng-switch-when="yes">
                                                                         <h4>Auditor Comments: </h4>
                                                                         {{completed.AuditorComment}}
                                                                         <hr />
@@ -148,11 +148,22 @@
 
                                                                 <div ng-switch on="isAuditor">
                                                                     <div ng-switch-when="yes">
-                                                                        <h4>Comments from the Team: </h4>
-                                                                            {{completed.TeamComment}}
-                                                                        <hr />
-                                                                        <h4>Auditor Comments: </h4>
-                                                                        <textarea style="width:100%;height:63%;" id=text-auditor-complete-comment{{completed.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{completed.AuditorComment}}</textarea>
+                                                                        <span ng-switch="isClick">
+                                                                            <span ng-switch-when="yes">
+                                                                                <h4>Comments from the Team: </h4>
+                                                                                {{completed.TeamComment}}
+                                                                                <hr />
+                                                                                <h4>Auditor Comments: </h4>
+                                                                                <textarea style="width:100%;height:63%;" id=text-auditor-complete-comment{{completed.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{completed.AuditorComment}}</textarea>
+                                                                            </span>
+
+                                                                            <span ng-switch-when="no">
+                                                                                <h4>Comments from the Team: </h4>
+                                                                                {{completed.TeamComment}}
+                                                                                <hr />
+
+                                                                            </span>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
 
@@ -169,10 +180,10 @@
                                                                         <button type="button" class="btn btn-default" ng-click="closeCompletedCommentPopupAndTakeText(completed)">Save</button>
                                                                     </div>
                                                                 </div>
-                                                                       
-                                                                    </div>
-                                                                </div>
+
                                                             </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -256,15 +267,15 @@
                                                                     <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
                                                                 </div>
                                                                 <div ng-switch-when="yes">
-                                                                    <button type="button" id=btn-accept{{pending.Id}} class="btn btn-default-audit" ng-click="acceptClaim(pending)">Accept</button>
+                                                                    <button type="button" id=btn-accept{{pending.Id}} class="btn btn-default-audit" data-toggle="modal" data-target="#auditorCommentModal{{pending.Id}}" ng-click="acceptClaim(pending)">Accept</button>
 
-                                                                    <button type="button" id=btn-reject{{pending.Id}} class="btn btn-default-audit" ng-click="rejectClaim(pending)">Reject</button>
+                                                                    <button type="button" id=btn-reject{{pending.Id}} class="btn btn-default-audit" data-toggle="modal" data-target="#auditorCommentModal{{pending.Id}}" ng-click="rejectClaim(pending)">Reject</button>
 
-                                                                    <button type="button" id=addAuditorCommentBtn{{pending.Id}} class="btn btn-auditor-addcomment disabled" data-toggle="modal" data-target="#auditorCommentModal{{pending.Id}}">
+                                                                    <button type="button" id=addAuditorCommentBtn{{pending.Id}} class="btn btn-auditor-addcomment" data-toggle="modal" data-target="#auditorCommentModal{{pending.Id}}">
                                                                         Comments
                                                                     </button>
 
-                                                                    <button type="button" id=btn-notapplicable{{pending.Id}} class="btn btn-default-audit" ng-click="makeClaimNotApplicable(pending)">Not applicable</button>
+                                                                    <button type="button" id=btn-notapplicable{{pending.Id}} class="btn btn-default-audit" data-toggle="modal" data-target="#auditorCommentModal{{pending.Id}}" ng-click="makeClaimNotApplicable(pending)">Not applicable</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -277,7 +288,11 @@
                                                                     <button type="button" class="close" data-dismiss="auditorCommentModal{{pending.Id}}" aria-hidden="true"></button>
                                                                     <h4 class="modal-title" id="basicModal">{{pending.Code}} : Add a comment</h4>
                                                                 </div>
-                                                                        <div class="modal-body-comment">
+
+
+                                                                <div class="modal-body-comment">
+                                                                    <span ng-switch="isClick">
+                                                                        <span ng-switch-when="yes">
                                                                             <h4>Comments from the Team: </h4>
                                                                             <div>
                                                                                 {{pending.TeamComment}}
@@ -285,9 +300,30 @@
                                                                             <hr />
                                                                             <h4>Auditor Comments: </h4>
                                                                             <textarea style="width:100%;height:63%;" id=text-auditor-comment{{pending.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{pending.AuditorComment}}</textarea>
-                                                                        </div>
+                                                                        </span>
+
+                                                                        <span ng-switch-when="no">
+                                                                            <h4>Comments from the Team: </h4>
+                                                                            <div>
+                                                                                {{pending.TeamComment}}
+                                                                            </div>
+                                                                            <hr />
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+
+
                                                                 <div class="modal-footer">
-                                                                    <button type="button" id=text-auditor-comment{{pending.Id}} class="btn btn-default" ng-click="closeAuditorCommentPopupAndTakeText(pending)">Save</button>
+                                                                    <span ng-switch="isClick">
+                                                                        <sapn ng-switch-when="yes">
+                                                                            <button type="button" id=text-auditor-comment{{pending.Id}} class="btn btn-default" ng-click="closeAuditorCommentPopupAndTakeText(pending)">Save</button>
+                                                                        </sapn>
+
+                                                                        <sapn ng-switch-when="no">
+
+                                                                        </sapn>
+
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -304,11 +340,13 @@
                                                                     <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
                                                                 </div>
                                                                 <div ng-switch-when="yes">
-                                                                    <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} ng-click="createClaimRequest(incomplete)">
+                                                                    <input type="checkbox" name="incompleteCheckboxes" class="checkbox" id=incompleteCheckBox{{incomplete.Id}} data-toggle="modal" data-target="#commentModal{{incomplete.Id}}" ng-click="createClaimRequest(incomplete)">
                                                                     <label for=incompleteCheckBox{{incomplete.Id}}><span></span></label>
-                                                                    <button type="button" id=addCommentBtn{{incomplete.Id}} class="btn btn-addcomment disabled" data-toggle="modal" data-target="#commentModal{{incomplete.Id}}">
+
+                                                                    <button type="button" id=addCommentBtn{{incomplete.Id}} class="btn btn-addcomment" data-toggle="modal" data-target="#commentModal{{incomplete.Id}}">
                                                                         Comments
                                                                     </button>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -323,16 +361,28 @@
                                                                     <button type="button" class="close" data-dismiss="commentModal{{incomplete.Id}}" aria-hidden="true"></button>
                                                                     <h4 class="modal-title" id="basicModal">{{incomplete.Code}} : Add a comment</h4>
                                                                 </div>
+
                                                                 <div class="modal-body-comment">
+
                                                                     <h4>Auditor Comments: </h4>
                                                                     {{incomplete.AuditorComment}}
                                                                     <hr />
                                                                     <h4>Comments from the Team: </h4>
-                                                                        <textarea style="width:100%;height:63%;" id=text-member-comment{{incomplete.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{incomplete.TeamComment}}</textarea>
-                                                                </div>
+                                                                    <textarea ng-hide="isHide" style="width:100%;height:63%;" id=text-member-comment{{incomplete.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{incomplete.TeamComment}}</textarea>
 
+                                                                    <!--  <textarea ng-hide="isHide" style="width:100%;height:13%;" id=text-member-comment1{{incomplete.Id}} tabindex="-1" placeholder="Write a comment" ng-click="preventClose($event)">{{incomplete.TeamComment}}</textarea>  -->
+
+                                                                </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" id=text-member-comment{{incomplete.Id}} class="btn btn-default" ng-click="closeCommentPopupAndTakeText(incomplete)">Save</button>
+                                                                    <span ng-switch="isClick">
+                                                                        <span ng-switch-when="yes">
+                                                                            <button type="button" id=text-member-comment{{incomplete.Id}} class="btn btn-default" ng-click="closeCommentPopupAndTakeText(incomplete)">Save</button>
+                                                                        </span>
+
+                                                                        <span ng-switch-when="no">
+
+                                                                        </span>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>

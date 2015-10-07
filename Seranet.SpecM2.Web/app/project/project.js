@@ -36,6 +36,8 @@
         $scope.userName = "";
         $scope.isMember = "no";
         $scope.isAuditor = "no";
+        $scope.isClick = "no";
+        $scope.isHide = "true";
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
 
@@ -53,14 +55,14 @@
         $scope.notApplicableClaims = [];
 
         $scope.rejectClaim = function (practice) {
-            document.getElementById('btn-reject' + practice.Id).disabled = true;
+            //document.getElementById('btn-reject' + practice.Id).disabled = true;
             if ($scope.claims[practice.Id] == 0) {
                 document.getElementById('btn-accept' + practice.Id).disabled = true;
                 document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
                 //document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
 
-                
-                
+
+
 
             }
             $scope.claims[practice.Id] = 2;
@@ -70,7 +72,7 @@
             data['status'] = 2;
             data['project_id'] = $scope.projectId;
             // data['auditor_comment'] = document.getElementById("text-auditor-comment" + practice.Id).value;
-
+            $scope.isClick = "yes";
 
             var f = "#addCommentBtn" + practice.Id;
             if (f != null)
@@ -98,7 +100,7 @@
         $scope.makeClaimNotApplicable = function (practice) {
             document.getElementById('btn-reject' + practice.Id).disabled = true;
             document.getElementById('btn-accept' + practice.Id).disabled = true;
-            document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
+            //document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
             //    document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
 
             var j = "#addAuditorCommentBtn" + practice.Id;
@@ -112,6 +114,7 @@
             data['practice_id'] = practice.Id;
             data['status'] = 4;
             data['project_id'] = $scope.projectId;
+            $scope.isClick = "yes";
 
             for (var i = 0; i < $scope.auditedClaims.length; i++) {
                 if ($scope.auditedClaims[i].practice_id === data['practice_id']) {
@@ -129,10 +132,10 @@
 
         $scope.acceptClaim = function (practice) {
             document.getElementById('btn-reject' + practice.Id).disabled = true;
-            document.getElementById('btn-accept' + practice.Id).disabled = true;
+         //   document.getElementById('btn-accept' + practice.Id).disabled = true;
             document.getElementById('btn-notapplicable' + practice.Id).disabled = true;
             // document.getElementById('auditor-dropdown' + practice.Id).disabled = true;
-
+            $scope.isClick = "yes";
             var j = "#addAuditorCommentBtn" + practice.Id;
 
             $(j).removeClass('disabled');
@@ -252,6 +255,8 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+
+                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
                             }
                         }
 
@@ -266,6 +271,8 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+
+                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
                             }
                         }
 
@@ -281,6 +288,8 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+
+                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
                             }
                         }
 
@@ -301,6 +310,8 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+
+                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
                             }
                         }
 
@@ -332,6 +343,8 @@
             console.log(practise);
             var l = "#incompleteCheckBox" + practise.Id;
             var j = "#addCommentBtn" + practise.Id;
+            $scope.isClick = "yes";
+            $scope.isHide = "false"
 
             var data = {};
             console.log(l);
@@ -352,9 +365,14 @@
                 data['Project'] = $scope.projectInContext;
                 data['TeamComment'] = document.getElementById("text-member-comment" + practise.Id).value;
 
+                // data['Attachements'] = document.getElementById("text-member-comment1" + practise.Id).value;
+
+
+
                 $scope.listOfAllClaims.push(data);
                 console.log("clicked - " + l);
                 console.log($scope.listOfAllClaims);
+
             }
         };
 
@@ -424,8 +442,16 @@
             var modalId = "#commentModal" + incomplete.Id;
             var commentText = document.getElementById("text-member-comment" + incomplete.Id).value;
 
+            // var commentText1 = document.getElementById("text-member-comment1" + incomplete.Id).value;
+
+
             var practiceToAddCommentTo = $scope.findClaimObject(incomplete.Id);
             practiceToAddCommentTo.TeamComment = commentText;
+
+            // practiceToAddCommentTo.Attachements = commentText1;
+
+
+
 
             console.log($('.modal-backdrop'));
             jQuery.noConflict();
@@ -436,6 +462,7 @@
             $('body').removeClass('modal-open');
             backdrop.remove();
             $(".modal-backdrop fade in").remove();
+
         }
 
         //to hide the complete comment modal popup
@@ -478,6 +505,7 @@
             var modalId = "#auditorCommentModal" + project.Id;
             var commentText = document.getElementById("text-auditor-comment" + project.Id).value;
 
+            // if()
             var practiceToAddCommentTo = $scope.findAuditedClaimObject(project.Id);
             practiceToAddCommentTo.auditor_comment = commentText;
 
@@ -512,7 +540,7 @@
 
         $scope.closeNotApplicableCommentPopup = function (project) {
             var modalId = "#notapplicablemodal" + project.Id;
-          
+
 
             console.log($('.modal-backdrop'));
             jQuery.noConflict();
@@ -609,6 +637,7 @@
                                             holdCommentAndId[0] = claimdata.Practice.Id;
                                             holdCommentAndId[1] = claimdata.TeamComment;
                                             holdCommentAndId[2] = claimdata.AuditorComment;
+                                            //holdCommentAndId[3] = claimdata.Attachements;
 
                                             $scope.CommentsArray.push(holdCommentAndId);
                                         })
@@ -673,9 +702,11 @@
                         }
                         else {                                                                   //if practise is in claims
                             if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {
+
                                 if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] === 3) {
                                     subcertificatesCount++;
                                 }
+
                                 else if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] != 1) {  // if practise is not accepted
 
                                     if ($scope.claims[$scope.areas[i].SubAreas[j].Practices[k].Id] === 0) { //if practise not claimed
@@ -842,7 +873,7 @@ error(function (data, status, headers, config) {
                                 console.log(error);
                             });
                                 }
-                          });  
+                            });
                        }).
                 error(function (data, status, headers, config) {
                     console.log(data);
