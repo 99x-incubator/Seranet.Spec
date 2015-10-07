@@ -1,8 +1,7 @@
 namespace Seranet.SpecM2.Data.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
@@ -18,7 +17,7 @@ namespace Seranet.SpecM2.Data.Migrations
                         RowVersion = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.SubArea",
                 c => new
@@ -34,7 +33,7 @@ namespace Seranet.SpecM2.Data.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Area", t => t.Area_Id)
                 .Index(t => t.Area_Id);
-            
+
             CreateTable(
                 "dbo.Practice",
                 c => new
@@ -55,7 +54,7 @@ namespace Seranet.SpecM2.Data.Migrations
                 .ForeignKey("dbo.SubArea", t => t.SubArea_Id)
                 .Index(t => t.Level_Id)
                 .Index(t => t.SubArea_Id);
-            
+
             CreateTable(
                 "dbo.Level",
                 c => new
@@ -67,7 +66,7 @@ namespace Seranet.SpecM2.Data.Migrations
                         RowVersion = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Claim",
                 c => new
@@ -87,7 +86,7 @@ namespace Seranet.SpecM2.Data.Migrations
                 .ForeignKey("dbo.Project", t => t.Project_Id)
                 .Index(t => t.Practice_Id)
                 .Index(t => t.Project_Id);
-            
+
             CreateTable(
                 "dbo.Project",
                 c => new
@@ -100,7 +99,7 @@ namespace Seranet.SpecM2.Data.Migrations
                         RowVersion = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.UserRole",
                 c => new
@@ -112,9 +111,9 @@ namespace Seranet.SpecM2.Data.Migrations
                         RowVersion = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Claim", "Project_Id", "dbo.Project");
