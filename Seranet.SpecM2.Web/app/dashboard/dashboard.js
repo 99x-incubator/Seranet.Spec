@@ -11,7 +11,7 @@
         var log = getLogFn(controllerId);
 
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
-      //  vm.busyMessage = 'Please wait ...';
+        //  vm.busyMessage = 'Please wait ...';
         vm.isBusy = true;
         vm.spinnerOptions = {
             radius: 40,
@@ -108,20 +108,21 @@
 
 
         function calculate() {
-            for (var p = 0; p < $scope.projectlist.length; p++) {
+            for (var p = 0; p < $scope.projectlist.length; p++) { //** there r 25 projects in Projects table, but only 22 active.so here v have 22
                 var projectlevel = 3;
                 $scope.projectlist[p].areas = [];
                 var pendingCount = 0;
-                for (var i = 0; i < $scope.areas.length; i++) {
+                for (var i = 0; i < $scope.areas.length; i++) {  //** 4main areas
                     var arealevel = 3;
                     var practicesCount = 0;
                     var certificatesCount = 0;
 
-                    for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) {
+                    for (var j = 0; j < $scope.areas[i].SubAreas.length; j++) { //* for example in 1st iteration, in Engineering decipline there are 5 sub areas
                         var level = 3;
-                        for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {
 
-                            if (!(($scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id) in $scope.claims)) {
+                        for (var k = 0; k < $scope.areas[i].SubAreas[j].Practices.length; k++) {  //* for example in 1st iteration, in Engineering decipline there are 5 sub areas and it have 8 practises
+
+                            if (!(($scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id) in $scope.claims)) {  //** we check each project and its each area is in claims table (already claimed or not).  ie 1:1 means, projectid 1 and practiseid 1 is claimed or not.There are 110 practiseids in total
                                 if ($scope.areas[i].SubAreas[j].Practices[k].Level.Id <= level) {
 
                                     level = $scope.areas[i].SubAreas[j].Practices[k].Level.Id - 1;
@@ -129,8 +130,12 @@
                             }
                             else {
                                 if (!($scope.areas[i].SubAreas[j].Practices[k].Obsolete)) {
+                                    if ($scope.claims[$scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id] === 3) {
+                                        certificatesCount++;
+                                    }
 
-                                    if ($scope.claims[$scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id] != 1) {
+
+                                    else if ($scope.claims[$scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id] != 1) { // 0-pending 1-approved 2-rejected 3-not applicable
                                         if ($scope.claims[$scope.projectlist[p].Id + ":" + $scope.areas[i].SubAreas[j].Practices[k].Id] === 0) {
                                             pendingCount++;
                                             console.log($scope.areas[i].SubAreas[j].Practices[k].Id + " is pending")
@@ -156,6 +161,7 @@
 
                     }
                     $scope.projectlist[p].areas.push({ Name: $scope.areas[i].Name, arealevel: arealevel, areacertificates: certificatesCount, areapractices: practicesCount });
+                    console.log(certificatesCount);
 
                     if (projectlevel >= arealevel) {
                         projectlevel = arealevel;

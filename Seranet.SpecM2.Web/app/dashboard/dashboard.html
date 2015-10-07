@@ -64,12 +64,12 @@
             </div>
         </div>-->
         <!--<div class="mid-boxes green-back content-box-type-one">-->
-            <div class="page-heading">
-                <h1>
-                    Project Comparison         |
-                    <span class ="number-of-projects-text">{{projectlist.length}} projects</span>
-                </h1> 
-            </div>
+        <div class="page-heading">
+            <h1>
+                Project Comparison         |
+                <span class="number-of-projects-text">{{projectlist.length}} projects</span>
+            </h1>
+        </div>
         <div class="inverted-margin-container white-back">
             <div class="row dark-green-back">
                 <div class="col-md-2 grid-title-white">
@@ -78,7 +78,7 @@
                 <div class="col-md-10">
                     <div class="row grid-title-white">
                         <div class="col-md-3" data-ng-repeat="area in areas">
-                            <div class="content-box-type-two">{{area.fname}}<br/>{{area.lname}}</div>
+                            <div class="content-box-type-two">{{area.fname}}<br />{{area.lname}}</div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                             <div class="col-md-3" data-ng-repeat="area in project.areas">
                                 <div class="content-box-type-two-dashboard">
                                     <div id={{project.Name}}{{area.Name}}>L{{area.arealevel}}<span class="status-text-dashboard">( {{area.areacertificates}} / {{area.areapractices}} )</span></div>
-                                    
+
                                     <div class="progress-bar-back">
                                         <div id=pb{{project.Name}}{{area.Name}}></div>
                                     </div>
