@@ -255,9 +255,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-
-                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
-                            }
+                                }
                         }
 
                         $scope.incompletedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
@@ -271,9 +269,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-
-                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
-                            }
+                                }
                         }
 
                         $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
@@ -288,9 +284,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-
-                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
-                            }
+                                }
                         }
 
                         $scope.pendingPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
@@ -310,9 +304,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-
-                                // practises[i].Attachements = $scope.CommentsArray[ind][3];
-                            }
+                                }
                         }
 
                         $scope.notApplicableClaims[$scope.practices[i].Level.Id - 1].push(practises[i]);
@@ -337,15 +329,15 @@
             }
         }
 
+       
         //function to save the claims
         $scope.createClaimRequest = function (practise) {
-
             console.log(practise);
             var l = "#incompleteCheckBox" + practise.Id;
             var j = "#addCommentBtn" + practise.Id;
             $scope.isClick = "yes";
-            $scope.isHide = "false"
-
+            $scope.isHide = "false";
+            
             var data = {};
             console.log(l);
             if (!$(l).prop('checked')) {
@@ -364,16 +356,10 @@
                 data['Practice'] = practise;
                 data['Project'] = $scope.projectInContext;
                 data['TeamComment'] = document.getElementById("text-member-comment" + practise.Id).value;
-
-                // data['Attachements'] = document.getElementById("text-member-comment1" + practise.Id).value;
-
-
-
                 $scope.listOfAllClaims.push(data);
                 console.log("clicked - " + l);
                 console.log($scope.listOfAllClaims);
-
-            }
+                }
         };
 
         //when cancel button clicked 
@@ -391,9 +377,10 @@
             $scope.changedClaims = true;
 
             if ($scope.listOfAllClaims.length != 0) {
-
+               
                 $http.post("api/claims", $scope.listOfAllClaims).
                     success(function (data, status, headers) {
+                        console.log($scope.listOfAllClaims);
                         console.log("Claim array added");
                         $scope.closeModalPopup();
                     }).
@@ -408,7 +395,7 @@
             }
         }
 
-
+     
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
@@ -417,21 +404,24 @@
             var modalDialog = $('#myModal');
             var backdrop = $('.modal-backdrop');
             modalDialog.modal('hide');
+          
 
             $('body').removeClass('modal-open');
+           
             backdrop.remove();
             $route.reload();
 
             //to uncheck all the checkboxes when popup closed
-            $('#myModal').on('hidden.bs.modal', function (e) {
+            $('#myModal').on('hidden.bs.modal', function(e) {
                 var checkboxes = new Array();
                 checkboxes = document.getElementsByName('incompleteCheckboxes');
+                console.log(checkboxes);
                 for (var i = 0; i < checkboxes.length; i++) {
                     if (checkboxes[i].type == 'checkbox') {
-                        checkboxes[i].checked = false
+                        checkboxes[i].checked = false;
                     }
                 }
-            })
+            });
 
             $(".modal-backdrop fade in").remove();
 
@@ -441,17 +431,12 @@
         $scope.closeCommentPopupAndTakeText = function (incomplete) {
             var modalId = "#commentModal" + incomplete.Id;
             var commentText = document.getElementById("text-member-comment" + incomplete.Id).value;
-
-            // var commentText1 = document.getElementById("text-member-comment1" + incomplete.Id).value;
+            var x = document.getElementById("myFile").files[0];
+           // var commentText1 = document.getElementById("text-member-comment1" + incomplete.Id).value;
 
 
             var practiceToAddCommentTo = $scope.findClaimObject(incomplete.Id);
             practiceToAddCommentTo.TeamComment = commentText;
-
-            // practiceToAddCommentTo.Attachements = commentText1;
-
-
-
 
             console.log($('.modal-backdrop'));
             jQuery.noConflict();
@@ -462,7 +447,7 @@
             $('body').removeClass('modal-open');
             backdrop.remove();
             $(".modal-backdrop fade in").remove();
-
+            document.getElementById("incompleteCheckBox" + incomplete.Id).checked = true;
         }
 
         //to hide the complete comment modal popup
