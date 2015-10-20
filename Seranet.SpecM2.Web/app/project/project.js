@@ -37,7 +37,9 @@
         $scope.isMember = "no";
         $scope.isAuditor = "no";
         $scope.isClick = "no";
+        $scope.isAuditorClick = "no";
         $scope.isHide = "true";
+        $scope.isShow ="true;"
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
 
@@ -55,6 +57,7 @@
         $scope.notApplicableClaims = [];
 
         $scope.rejectClaim = function (practice) {
+            $scope.isAuditorClick = "yes";
             //document.getElementById('btn-reject' + practice.Id).disabled = true;
             if ($scope.claims[practice.Id] == 0) {
                 document.getElementById('btn-accept' + practice.Id).disabled = true;
@@ -255,6 +258,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+                           
                             }
                         }
 
@@ -269,7 +273,8 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-                            }
+
+                               }
                         }
 
                         $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
@@ -284,6 +289,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+
                             }
                         }
 
@@ -304,6 +310,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
+
                             }
                         }
 
@@ -329,6 +336,7 @@
             }
         }
 
+      
         //function to save the claims
         $scope.createClaimRequest = function (practise) {
             console.log(practise);
@@ -336,6 +344,7 @@
             var j = "#addCommentBtn" + practise.Id;
             $scope.isClick = "yes";
             $scope.isHide = "false";
+            $scope.isShow = "false";
 
             var data = {};
             console.log(l);
@@ -355,6 +364,7 @@
                 data['Practice'] = practise;
                 data['Project'] = $scope.projectInContext;
                 data['TeamComment'] = document.getElementById("text-member-comment" + practise.Id).value;
+                console.log(data);
 
                 $scope.listOfAllClaims.push(data);
                 console.log("clicked - " + l);
@@ -468,6 +478,7 @@
             }
         }
 
+      
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
@@ -503,7 +514,7 @@
         $scope.closeCommentPopupAndTakeText = function (incomplete) {
             var modalId = "#commentModal" + incomplete.Id;
             var commentText = document.getElementById("text-member-comment" + incomplete.Id).value;
-
+          
             var practiceToAddCommentTo = $scope.findClaimObject(incomplete.Id);
             practiceToAddCommentTo.TeamComment = commentText;
 
