@@ -2,9 +2,13 @@
 using Seranet.SpecM2.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace Seranet.SpecM2.Api.Scorecard
@@ -39,6 +43,16 @@ namespace Seranet.SpecM2.Api.Scorecard
             
             return -1;
         }
+
+        [Route("api/userrole/Usermail")]
+        [HttpGet]
+        public IEnumerable<String> GetUsermail()
+        {
+            
+            List<String> email = (from c in context.UserRoles where c.UserRoleType == UserRoleType.ADMIN  select  c.UserEmail).ToList();
+            return email;
+        }
+        
 
     }
 }

@@ -6,7 +6,8 @@ namespace Seranet.SpecM2.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "Seranet.SpecM2.Data.SpecDbContext";
         }
 

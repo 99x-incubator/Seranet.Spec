@@ -13,6 +13,8 @@ namespace Seranet.SpecM2.Model
 
         public String UserName { get; set; }
 
+        public String UserEmail { get; set; }
+
         public Guid GUID { get; set; }
 
         public byte[] RowVersion { get; set; }

@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     var controllerId = 'project';
-    angular.module('app').controller(controllerId, ['$scope', 'common', '$routeParams', '$http', '$route', project]);
+    angular.module('app').controller(controllerId, ['$scope', 'common', '$routeParams', '$http', '$route','$timeout','$window', project]);
 
-    function project($scope, common, $routeParams, $http, $route) {
+    function project($scope, common, $routeParams, $http, $route, $timeout, $window ,$location) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var vm = this;
@@ -24,9 +24,8 @@
         };
 
 
-
-
-        $scope.areas = []; //$scope.areas[i].level gives the level of i-th area,$scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
+       $scope.areas = []; //$scope.areas[i].level gives the level of i-th area,$scope.areas[i].SubAreas[j].level gives the level of j-th sub area in i-th area
+        //  $scope.mail = [];
         $scope.incompletedPractisesCount = 0;
         $scope.level_list = [0, 1, 2];
 
@@ -39,7 +38,7 @@
         $scope.isClick = "no";
         $scope.isAuditorClick = "no";
         $scope.isHide = "true";
-        $scope.isShow ="true;"
+        $scope.isShow = "true;"
         $scope.projectId = $routeParams.projectId;
         $scope.claims = new Object();   //the dictionary for claim status practice_id-->>status
 
@@ -258,7 +257,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-                           
+
                             }
                         }
 
@@ -273,8 +272,7 @@
                             if ($scope.CommentsArray[ind][0] == $scope.practices[i].Id) {
                                 practises[i].TeamComment = $scope.CommentsArray[ind][1];
                                 practises[i].AuditorComment = $scope.CommentsArray[ind][2];
-
-                               }
+                                }
                         }
 
                         $scope.completedPractises[$scope.practices[i].Level.Id - 1].push(practises[i]);
@@ -336,7 +334,7 @@
             }
         }
 
-      
+       
         //function to save the claims
         $scope.createClaimRequest = function (practise) {
             console.log(practise);
@@ -364,6 +362,7 @@
                 data['Practice'] = practise;
                 data['Project'] = $scope.projectInContext;
                 data['TeamComment'] = document.getElementById("text-member-comment" + practise.Id).value;
+
                 console.log(data);
 
                 $scope.listOfAllClaims.push(data);
@@ -478,7 +477,25 @@
             }
         }
 
-      
+        //Mail sending functionality
+        $scope.sendMail = function (projectName) {
+            console.log(projectName);
+            $http({ method: 'GET', url: 'http://localhost:56771/api/userrole/Usermail' }).success(function (data, status, headers, config) {
+                console.log(data.toString());
+                var Indata = { to: data.toString(), projectIdentity: projectName }
+                return $http({
+                    method: 'POST',
+                    url: 'http://localhost:56771/api/claims/email',
+                    data: JSON.stringify(Indata)
+                });
+
+            }).error(function (data, status, headers, config) {
+                console.log("An error occured while getting details from Userrole database.");
+                console.log(data);
+            });
+        }
+
+        
         //to hide the modal popup
         $scope.closeModalPopup = function () {
             console.log($('.modal-backdrop'));
@@ -514,10 +531,11 @@
         $scope.closeCommentPopupAndTakeText = function (incomplete) {
             var modalId = "#commentModal" + incomplete.Id;
             var commentText = document.getElementById("text-member-comment" + incomplete.Id).value;
-          
+           
             var practiceToAddCommentTo = $scope.findClaimObject(incomplete.Id);
             practiceToAddCommentTo.TeamComment = commentText;
 
+           
             console.log($('.modal-backdrop'));
             jQuery.noConflict();
             var modalDialog = $(modalId);
@@ -705,7 +723,7 @@
                                             holdCommentAndId[0] = claimdata.Practice.Id;
                                             holdCommentAndId[1] = claimdata.TeamComment;
                                             holdCommentAndId[2] = claimdata.AuditorComment;
-
+                                           
                                             $scope.CommentsArray.push(holdCommentAndId);
                                         })
 
